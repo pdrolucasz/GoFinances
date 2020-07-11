@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
@@ -32,6 +33,8 @@ interface Balance {
 const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance>({} as Balance);
+
+  const { colors } = useContext(ThemeContext);
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
@@ -68,21 +71,31 @@ const Dashboard: React.FC = () => {
       <Container>
         {balance && (
           <CardContainer>
-            <Card>
+            <Card
+              background={`${colors.backgroundCard}`}
+              text={`${colors.cardText}`}
+            >
               <header>
                 <p>Entradas</p>
                 <img src={income} alt="Income" />
               </header>
               <h1 data-testid="balance-income">{balance.income}</h1>
             </Card>
-            <Card>
+            <Card
+              background={`${colors.backgroundCard}`}
+              text={`${colors.cardText}`}
+            >
               <header>
                 <p>Saídas</p>
                 <img src={outcome} alt="Outcome" />
               </header>
               <h1 data-testid="balance-outcome">{balance.outcome}</h1>
             </Card>
-            <Card total>
+            <Card
+              total
+              background={`${colors.backgroundCardTotal}`}
+              text="#fff"
+            >
               <header>
                 <p>Total</p>
                 <img src={total} alt="Total" />

@@ -5,8 +5,8 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background-color: #33207e;
-  background-image: linear-gradient(19deg, #33207e 54%, #5636d3 100%);
+  background-color: ${props => props.theme.colors.backgroundColor};
+  background-image: ${props => props.theme.colors.backgroundImage};
 
   padding: 30px 0;
 

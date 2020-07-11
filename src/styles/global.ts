@@ -9,7 +9,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #1C1C31 ;
+    background: ${props => props.theme.colors.background} ;
     -webkit-font-smoothing: antialiased
   }
 

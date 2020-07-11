@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 interface CardProps {
   total?: boolean;
+  text: string;
+  background: string;
 }
 
 export const Container = styled.div`
@@ -24,11 +26,10 @@ export const CardContainer = styled.section`
 `;
 
 export const Card = styled.div`
-  background: ${({ total }: CardProps): string =>
-    total ? '#cc6c23' : '#19103F'};
+  background: ${({ background }: CardProps): string => background};
   padding: 22px 32px;
   border-radius: 5px;
-  color: ${({ total }: CardProps): string => (total ? '#fff' : '#c2c5cf')};
+  color: ${({ total, text }: CardProps): string => (total ? '#fff' : text)};
 
   header {
     display: flex;
@@ -75,7 +76,7 @@ export const TableContainer = styled.section`
       font-size: 16px;
       font-weight: normal;
       color: #969cb3;
-      background: #19103fcc;
+      background: ${props => props.theme.colors.primary};
 
       &.title {
         color: #536194;
