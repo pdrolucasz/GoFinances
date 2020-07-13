@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { ThemeContext } from 'styled-components';
+import { FiPlus, FiTrash2 } from 'react-icons/fi';
 
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
@@ -8,10 +9,18 @@ import total from '../../assets/total.svg';
 import api from '../../services/api';
 
 import Header from '../../components/Header';
+import TransitionsModal from '../../components/Modal';
+import { useModal } from '../../hooks/modal';
 
 import formatValue from '../../utils/formatValue';
 
-import { Container, CardContainer, Card, TableContainer } from './styles';
+import {
+  Container,
+  CardContainer,
+  Card,
+  TableContainer,
+  Button,
+} from './styles';
 
 interface Transaction {
   id: string;
@@ -33,6 +42,7 @@ interface Balance {
 const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance>({} as Balance);
+  const { open, handleOpen } = useModal();
 
   const { colors } = useContext(ThemeContext);
 
@@ -63,12 +73,26 @@ const Dashboard: React.FC = () => {
     }
 
     loadTransactions();
-  }, []);
+  }, [open, transactions]);
+
+  const handleRemoveTransaction = useCallback(
+    async (id: string): Promise<void> => {
+      await api.delete(`/transactions/${id}`);
+
+      const filteredTransaction = transactions.filter(
+        transaction => transaction.id !== id,
+      );
+      setTransactions(filteredTransaction);
+    },
+    [transactions],
+  );
 
   return (
     <>
       <Header />
       <Container>
+        {open && <TransitionsModal />}
+
         {balance && (
           <CardContainer>
             <Card
@@ -113,6 +137,11 @@ const Dashboard: React.FC = () => {
                 <th>Preço</th>
                 <th>Categoria</th>
                 <th>Data</th>
+                <th>
+                  <Button onClick={handleOpen}>
+                    <FiPlus color="blue" />
+                  </Button>
+                </th>
               </tr>
             </thead>
 
@@ -126,6 +155,13 @@ const Dashboard: React.FC = () => {
                   </td>
                   <td>{transaction.category.title}</td>
                   <td>{transaction.formattedDate}</td>
+                  <td>
+                    <Button
+                      onClick={() => handleRemoveTransaction(transaction.id)}
+                    >
+                      <FiTrash2 color="red" />
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -100,3 +100,9 @@ export const TableContainer = styled.section`
     }
   }
 `;
+
+export const Button = styled.button`
+  border: 0;
+  outline: 0;
+  background: transparent;
+`;
