@@ -18,7 +18,7 @@ export const FormCreate = styled(Form)`
       background: ${props => props.theme.colors.background};
       border-radius: 10px;
       width: 80%;
-      color: #666360;
+      color: ${props => props.theme.colors.text};
       font-size: 18px;
       padding: 10px;
       margin: 10px;
@@ -27,7 +27,7 @@ export const FormCreate = styled(Form)`
       border: 0;
 
       option {
-        color: #f4ede8;
+        color: ${props => props.theme.colors.text};
       }
     }
   }
@@ -39,6 +39,7 @@ export const FormCreate = styled(Form)`
     width: 200px;
     height: 40px;
     align-self: center;
+    color: #f4ede8;
 
     &:hover {
       background: ${shade(0.4, 'rgb(77, 77, 184)')};

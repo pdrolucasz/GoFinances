@@ -7,6 +7,7 @@ export default {
     primary: '#19103fcc',
     secundary: shade(0.2, '#1c1c31'),
     title: '#969cb3',
+    text: '#f4ede8',
 
     background: '#1C1C31',
 

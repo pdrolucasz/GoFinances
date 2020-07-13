@@ -4,13 +4,13 @@ export const Container = styled.div`
   background: ${props => props.theme.colors.background};
   border-radius: 10px;
   width: 80%;
-  color: #666360;
+  color: #363f5f;
   margin: 10px;
 
   input {
     background: transparent;
     border: 0;
-    color: #f4ede8;
+    color: ${props => props.theme.colors.text};
     padding: 10px;
 
     &::placeholder {
